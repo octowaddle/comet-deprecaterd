@@ -2,13 +2,20 @@ project('comet', 'cpp', version: '0.1.0')
 
 comet_header_files = files(
     'include/comet/hello.hpp',
+    'include/comet/base/types.hpp',
+    'include/comet/graphics/window.hpp',
+    'include/comet/exceptions/exception.hpp',
 )
 
 comet_source_files = files(
     'source/comet/hello.cpp',
+    'source/comet/graphics/window.cpp',
+    'source/comet/exceptions/exception.cpp',
 )
 
-comet_dependencies = []
+comet_dependencies = [
+    dependency('glfw3')
+]
 
 comet_library = library(
     'comet',
