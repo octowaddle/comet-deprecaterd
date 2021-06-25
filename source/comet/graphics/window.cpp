@@ -2,6 +2,7 @@
 #include <comet/graphics/window.hpp>
 #include <comet/exceptions/exception.hpp>
 #include <comet/base/external.hpp>
+#include <iostream>
 
 namespace comet
 {
@@ -20,13 +21,21 @@ namespace comet
 
         handle = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
-        if (handle != nullptr)
+        if (handle == nullptr)
         {
             throw Exception("Failed to create window.");
         }
 
+        glfwSetWindowUserPointer((GLFWwindow *) handle, &event_queue);
         glfwMakeContextCurrent((GLFWwindow *) handle);
         glfwSwapInterval(1);
+
+        glfwSetWindowSizeCallback((GLFWwindow *) handle, [](GLFWwindow *window, int width, int height)
+        {
+            EventQueue *event_queue = (EventQueue *) glfwGetWindowUserPointer(window);
+            Event event(WindowEvent(WindowResizeEvent(width, height)));
+            event_queue->enqueue(event);
+        });
     }
 
     Window::Window(Window &&other)
@@ -60,5 +69,15 @@ namespace comet
     {
         glfwPollEvents();
         glfwSwapBuffers((GLFWwindow *) handle);
+    }
+
+    bool Window::events_queued() const
+    {
+        return !event_queue.empty();
+    }
+
+    Event Window::poll_event()
+    {
+        return event_queue.dequeue();
     }
 }

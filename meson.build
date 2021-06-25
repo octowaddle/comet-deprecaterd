@@ -5,12 +5,23 @@ comet_header_files = files(
     'include/comet/base/types.hpp',
     'include/comet/graphics/window.hpp',
     'include/comet/exceptions/exception.hpp',
+    'include/comet/events/event.hpp',
+    'include/comet/events/event_queue.hpp',
+    'include/comet/events/key_events/key_event.hpp',
+    'include/comet/events/window_events/window_event.hpp',
+    'include/comet/events/window_events/window_close_event.hpp',
+    'include/comet/events/window_events/window_resize_event.hpp',
 )
 
 comet_source_files = files(
     'source/comet/hello.cpp',
     'source/comet/graphics/window.cpp',
     'source/comet/exceptions/exception.cpp',
+    'source/comet/events/event.cpp',
+    'source/comet/events/event_queue.cpp',
+    'source/comet/events/key_events/key_event.cpp',
+    'source/comet/events/window_events/window_event.cpp',
+    'source/comet/events/window_events/window_resize_event.cpp',
 )
 
 comet_dependencies = [

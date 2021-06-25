@@ -1,6 +1,7 @@
 #pragma once
 
 #include <comet/base/types.hpp>
+#include <comet/events/event_queue.hpp>
 
 namespace comet
 {
@@ -22,7 +23,12 @@ namespace comet
 
         void update() const;
 
+        bool events_queued() const;
+
+        Event poll_event();
+
     private:
+        EventQueue event_queue;
         Handle handle = nullptr;
     };
 }
