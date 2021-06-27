@@ -1,4 +1,6 @@
-project('comet', 'cpp', version: '0.1.0')
+project('comet', 'cpp', default_options: ['cpp_std=c++17'], version: '0.1.0')
+
+compiler = meson.get_compiler('cpp')
 
 comet_header_files = files(
     'include/comet/hello.hpp',
@@ -24,11 +26,16 @@ comet_source_files = files(
     'source/comet/events/window_events/window_resize_event.cpp',
 )
 
+glfw3_dependency = dependency('glfw3', required: false)
+if not glfw3_dependency.found()
+    glfw3_dependency = compiler.find_library('glfw3', required: false)
+endif
+
 comet_dependencies = [
-    dependency('glfw3')
+    glfw3_dependency
 ]
 
-comet_library = library(
+comet_library = static_library(
     'comet',
     [comet_header_files, comet_source_files],
     dependencies: comet_dependencies,
