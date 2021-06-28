@@ -9,9 +9,15 @@ namespace comet
     {
     }
 
-    Event::Event(const WindowEvent &window_event)
-    : type(Type::Window)
-    , event(window_event)
+    Event::Event(const WindowCloseEvent &window_close_event)
+    : type(Type::WindowClose)
+    , event(window_close_event)
+    {
+    }
+
+    Event::Event(const WindowResizeEvent &window_resize_event)
+    : type(Type::WindowResize)
+    , event(window_resize_event)
     {
     }
 
@@ -32,11 +38,23 @@ namespace comet
         }
     }
 
-    WindowEvent Event::as_window_event() const
+    WindowCloseEvent Event::as_window_close_event() const
     {
-        if (type == Type::Window)
+        if (type == Type::WindowClose)
         {
-            return std::get<WindowEvent>(event);
+            return std::get<WindowCloseEvent>(event);
+        }
+        else
+        {
+            throw Exception("Tried to get wrong event type.");
+        }
+    }
+
+    WindowResizeEvent Event::as_window_resize_event() const
+    {
+        if (type == Type::WindowResize)
+        {
+            return std::get<WindowResizeEvent>(event);
         }
         else
         {

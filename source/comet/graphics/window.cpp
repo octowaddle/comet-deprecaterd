@@ -33,7 +33,7 @@ namespace comet
         glfwSetWindowSizeCallback((GLFWwindow *) handle, [](GLFWwindow *window, int width, int height)
         {
             EventQueue *event_queue = (EventQueue *) glfwGetWindowUserPointer(window);
-            Event event(WindowEvent(WindowResizeEvent(width, height)));
+            Event event(WindowResizeEvent(width, height));
             event_queue->enqueue(event);
         });
     }

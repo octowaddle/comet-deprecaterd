@@ -10,7 +10,6 @@ comet_header_files = files(
     'include/comet/events/event.hpp',
     'include/comet/events/event_queue.hpp',
     'include/comet/events/key_events/key_event.hpp',
-    'include/comet/events/window_events/window_event.hpp',
     'include/comet/events/window_events/window_close_event.hpp',
     'include/comet/events/window_events/window_resize_event.hpp',
 )
@@ -22,7 +21,6 @@ comet_source_files = files(
     'source/comet/events/event.cpp',
     'source/comet/events/event_queue.cpp',
     'source/comet/events/key_events/key_event.cpp',
-    'source/comet/events/window_events/window_event.cpp',
     'source/comet/events/window_events/window_resize_event.cpp',
 )
 

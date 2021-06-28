@@ -14,17 +14,12 @@ int main()
 
         while (window.events_queued())
         {
-            Event event = window.poll_event();
+            auto event = window.poll_event();
 
-            if (event.get_type() == Event::Type::Window)
+            if (event.get_type() == Event::Type::WindowResize)
             {
-                WindowEvent window_event = event.as_window_event();
-
-                if (window_event.get_type() == WindowEvent::Type::Resize)
-                {
-                    WindowResizeEvent window_resize_event = window_event.as_window_resize_event();
-                    std::cout << "WindowResizeEvent " << window_resize_event.get_width() << " " << window_resize_event.get_height() << "\n";
-                }
+                auto resize_event = event.as_window_resize_event();\
+                std::cout << "window resize event: " << resize_event.get_width() << " " << resize_event.get_height() << "\n";
             }
         }
     }
