@@ -9,7 +9,8 @@ comet_header_files = files(
     'include/comet/exceptions/exception.hpp',
     'include/comet/events/event.hpp',
     'include/comet/events/event_queue.hpp',
-    'include/comet/events/key_events/key_event.hpp',
+    'include/comet/events/key_events/key_pressed_event.hpp',
+    'include/comet/events/key_events/key_released_event.hpp',
     'include/comet/events/window_events/window_close_event.hpp',
     'include/comet/events/window_events/window_resize_event.hpp',
 )
@@ -20,7 +21,8 @@ comet_source_files = files(
     'source/comet/exceptions/exception.cpp',
     'source/comet/events/event.cpp',
     'source/comet/events/event_queue.cpp',
-    'source/comet/events/key_events/key_event.cpp',
+    'source/comet/events/key_events/key_pressed_event.cpp',
+    'source/comet/events/key_events/key_released_event.cpp',
     'source/comet/events/window_events/window_resize_event.cpp',
 )
 
@@ -30,7 +32,9 @@ if not glfw3_dependency.found()
 endif
 
 comet_dependencies = [
-    glfw3_dependency
+    glfw3_dependency,
+    compiler.find_library('dl', required: host_machine.system() == 'linux'),
+    compiler.find_library('pthread', required: host_machine.system() == 'linux'),
 ]
 
 comet_library = static_library(

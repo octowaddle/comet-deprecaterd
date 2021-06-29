@@ -3,9 +3,15 @@
 
 namespace comet
 {
-    Event::Event(const KeyEvent &key_event)
-    : type(Type::Keyboard)
-    , event(key_event)
+    Event::Event(const KeyPressedEvent &key_pressed_event)
+    : type(Type::KeyPressed)
+    , event(key_pressed_event)
+    {
+    }
+
+    Event::Event(const KeyReleasedEvent &key_released_event)
+    : type(Type::KeyReleased)
+    , event(key_released_event)
     {
     }
 
@@ -26,11 +32,23 @@ namespace comet
         return type;
     }
 
-    KeyEvent Event::as_key_event() const
+    KeyPressedEvent Event::as_key_pressed_event() const
     {
-        if (type == Type::Keyboard)
+        if (type == Type::KeyPressed)
         {
-            return std::get<KeyEvent>(event);
+            return std::get<KeyPressedEvent>(event);
+        }
+        else
+        {
+            throw Exception("Tried to get wrong event type.");
+        }
+    }
+
+    KeyReleasedEvent Event::as_key_released_event() const
+    {
+        if (type == Type::KeyReleased)
+        {
+            return std::get<KeyReleasedEvent>(event);
         }
         else
         {

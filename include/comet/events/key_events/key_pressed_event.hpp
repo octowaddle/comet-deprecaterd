@@ -4,11 +4,11 @@
 
 namespace comet
 {
-    struct KeyEvent
+    struct KeyPressedEvent
     {
-        KeyEvent(const u32 key_code);
+        KeyPressedEvent(const u32 key_code);
 
-        ~KeyEvent() = default;
+        ~KeyPressedEvent() = default;
 
         u32 get_key_code() const;
 

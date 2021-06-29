@@ -1,7 +1,8 @@
 #pragma once
 
 #include <comet/base/types.hpp>
-#include <comet/events/key_events/key_event.hpp>
+#include <comet/events/key_events/key_pressed_event.hpp>
+#include <comet/events/key_events/key_released_event.hpp>
 #include <comet/events/window_events/window_close_event.hpp>
 #include <comet/events/window_events/window_resize_event.hpp>
 
@@ -11,12 +12,15 @@ namespace comet
     {
         enum class Type
         {
-            Keyboard,
+            KeyPressed,
+            KeyReleased,
             WindowClose,
             WindowResize
         };
 
-        Event(const KeyEvent &key_event);
+        Event(const KeyPressedEvent &key_pressed_event);
+
+        Event(const KeyReleasedEvent &key_released_event);
 
         Event(const WindowCloseEvent &window_close_event);
 
@@ -24,7 +28,9 @@ namespace comet
 
         Type get_type() const;
 
-        KeyEvent as_key_event() const;
+        KeyPressedEvent as_key_pressed_event() const;
+
+        KeyReleasedEvent as_key_released_event() const;
 
         WindowCloseEvent as_window_close_event() const;
 
@@ -32,6 +38,6 @@ namespace comet
 
     private:
         const Type type;
-        const Variant<KeyEvent, WindowCloseEvent, WindowResizeEvent> event;
+        const Variant<KeyPressedEvent, KeyReleasedEvent, WindowCloseEvent, WindowResizeEvent> event;
     };
 }

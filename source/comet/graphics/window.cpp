@@ -33,8 +33,34 @@ namespace comet
         glfwSetWindowSizeCallback((GLFWwindow *) handle, [](GLFWwindow *window, int width, int height)
         {
             EventQueue *event_queue = (EventQueue *) glfwGetWindowUserPointer(window);
-            Event event(WindowResizeEvent(width, height));
+            WindowResizeEvent resize_event(width, height);
+            Event event(resize_event);
             event_queue->enqueue(event);
+        });
+
+        glfwSetWindowCloseCallback((GLFWwindow *) handle, [](GLFWwindow *window)
+        {
+            EventQueue *event_queue = (EventQueue *) glfwGetWindowUserPointer(window);
+            WindowCloseEvent window_close_event;
+            Event event(window_close_event);
+            event_queue->enqueue(event);
+        });
+
+        glfwSetKeyCallback((GLFWwindow *) handle, [](GLFWwindow *window, int key_code, int scan_code, int action, int modifier)
+        {
+            EventQueue *event_queue = (EventQueue *) glfwGetWindowUserPointer(window);
+            if (action == GLFW_PRESS)
+            {
+                KeyPressedEvent key_pressed_event(key_code);
+                Event event(key_pressed_event);
+                event_queue->enqueue(event);
+            }
+            else if (action == GLFW_RELEASE)
+            {
+                KeyReleasedEvent key_released_event(key_code);
+                Event event(key_released_event);
+                event_queue->enqueue(event);
+            }
         });
     }
 
